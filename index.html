@@ -183,6 +183,7 @@ function csvToGeoJSON(text){
     const row = lines[i].split(",");
 
     const item = {};
+    console.log(row);
 
     headers.forEach((h,index)=>{
       item[h] = row[index] || "";
