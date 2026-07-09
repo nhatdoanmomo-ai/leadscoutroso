@@ -265,28 +265,6 @@ geojson.features.length.toLocaleString() + " leads";
 
 map.on("load",()=>{
 
-// TOÀN BỘ PHẦN
-// map.addSource(...)
-// map.addLayer(...)
-// map.on("click"...)
-// popup
-// bỏ nguyên vào đây
-
-});
-
-})
-.catch(err=>{
-console.error(err);
-alert("Không tải được CSV");
-});
-
-});
-const geojson = csvToGeoJSON(text);
-
-document.getElementById("count").innerHTML =
-geojson.features.length.toLocaleString() + " leads";
-
-map.on("load",()=>{
 
 map.addSource("leads",{
 type:"geojson",
@@ -600,12 +578,18 @@ href="https://www.google.com/maps?q=${lat},${lng}">
 `)
 .addTo(map);
 
+}); // kết thúc click points
+
+}); // kết thúc map.on("load")
+
+}) // kết thúc then(text=>...)
+
 .catch(err=>{
   console.error(err);
   alert("Không tải được CSV");
 });
 
-
+}); // kết thúc loadNotes().then(...)
 ```
 <script>
 let myMarker = null;
