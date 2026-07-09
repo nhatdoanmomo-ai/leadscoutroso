@@ -194,6 +194,7 @@ function csvToGeoJSON(text){
 
     const parts = item.lat_long.split(",");
 
+    console.log(item.lat_long);
     if(parts.length < 2) continue;
 
     const lat = parseFloat(parts[0]);
