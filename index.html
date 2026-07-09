@@ -194,15 +194,10 @@ const row = matches.map(v =>
       item[h] = row[index] || "";
     });
 
-    if(!item.lat_long) continue;
+  const lat = parseFloat(item.lat);
+const lng = parseFloat(item.lng);
 
-    const parts = item.lat_long.split(",");
-
-    console.log(item.lat_long);
-    if(parts.length < 2) continue;
-
-    const lat = parseFloat(parts[0]);
-    const lng = parseFloat(parts[1]);
+if(isNaN(lat) || isNaN(lng)) continue;
 
     if(isNaN(lat) || isNaN(lng)) continue;
 
