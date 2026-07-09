@@ -171,45 +171,60 @@ zoom:10
 
 function csvToGeoJSON(text){
 
-const lines=text.trim().split("\n");
+  const lines = text.trim().split("\n");
 
-const features=[];
+  const headers = lines[0]
+    .split(",")
+    .map(h => h.trim());
 
-for(let i=1;i<lines.length;i++){
+  const features = [];
 
-const row=lines[i].split(",");
+  for(let i=1;i<lines.length;i++){
 
-if(row.length<10) continue;
+    const row = lines[i].split(",");
 
-const lat=parseFloat(row[0]);
-const lng=parseFloat(row[1]);
+    const item = {};
 
-if(isNaN(lat)||isNaN(lng)) continue;
+    headers.forEach((h,index)=>{
+      item[h] = row[index] || "";
+    });
 
-features.push({
-type:"Feature",
-geometry:{
-type:"Point",
-coordinates:[lng,lat]
-},
-properties:{
-bank:row[2]||"",
-tail3:row[3]||"",
-trans:row[4]||"",
-note:row[5]||"",
-pic:row[6]||"",
-district:row[7]||"",
-ward:row[8]||"",
-street:row[9]||""
-}
-});
+    if(!item.lat_long) continue;
 
-}
+    const parts = item.lat_long.split(",");
 
-return {
-type:"FeatureCollection",
-features
-};
+    if(parts.length < 2) continue;
+
+    const lat = parseFloat(parts[0]);
+    const lng = parseFloat(parts[1]);
+
+    if(isNaN(lat) || isNaN(lng)) continue;
+
+    features.push({
+      type:"Feature",
+      geometry:{
+        type:"Point",
+        coordinates:[lng,lat]
+      },
+      properties:{
+        bank:item.bank || "",
+        tail3:item.number || "",
+        trans:item.trans || "",
+        note:item.note || "",
+        pic:item.pic || "",
+        district:item.district || "",
+        ward:"",
+        street:item.street_name || ""
+      }
+    });
+
+  }
+
+  return {
+    type:"FeatureCollection",
+    features
+  };
+
 
 }
 async function loadNotes(){
