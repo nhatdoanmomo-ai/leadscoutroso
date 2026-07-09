@@ -226,36 +226,10 @@ function csvToGeoJSON(text){
 
 
 }
-async function loadNotes(){
-
-  try{
-
-    const r = await fetch("/api/get-notes");
-
-    const data = await r.json();
-
-    notesCache = {};
-
-    data.forEach(item=>{
-
-      notesCache[
-        item.lat + "_" + item.lng
-      ] = item;
-
-    });
-
-  }catch(e){
-
-    console.log(e);
-
-  }
-
-}
-loadNotes().then(()=>{
-
 fetch(CSV_URL)
 .then(r=>r.text())
 .then(text=>{
+
 
 const geojson = csvToGeoJSON(text);
 
@@ -588,7 +562,6 @@ href="https://www.google.com/maps?q=${lat},${lng}">
   alert("Không tải được CSV");
 });
 
-}); // kết thúc loadNotes().then(...)
 
 let myMarker = null;
 let notesCache = {};
