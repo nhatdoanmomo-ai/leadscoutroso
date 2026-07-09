@@ -600,11 +600,6 @@ href="https://www.google.com/maps?q=${lat},${lng}">
 `)
 .addTo(map);
 
-}); // kết thúc click points
-
-}); // kết thúc map.on("load")
-
-}) // kết thúc then(text=>...)
 .catch(err=>{
   console.error(err);
   alert("Không tải được CSV");
