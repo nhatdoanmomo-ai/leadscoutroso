@@ -230,6 +230,7 @@ fetch(CSV_URL)
 .then(r=>r.text())
 .then(text=>{
 
+console.log(text);
 
 const geojson = csvToGeoJSON(text);
 
