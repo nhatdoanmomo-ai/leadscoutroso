@@ -180,10 +180,11 @@ function csvToGeoJSON(text){
 
   for(let i=1;i<lines.length;i++){
 
-    const row = lines[i].split(",");
+   const row = lines[i]
+.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g)
+.map(v => v.replace(/^"|"$/g, "").trim());
 
     const item = {};
-    console.log(row);
 
     headers.forEach((h,index)=>{
       item[h] = row[index] || "";
@@ -231,7 +232,6 @@ fetch(CSV_URL)
 .then(r=>r.text())
 .then(text=>{
 
-console.log(text);
 
 const geojson = csvToGeoJSON(text);
 
